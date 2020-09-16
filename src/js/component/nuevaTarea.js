@@ -1,9 +1,12 @@
 //import ReactDOM from "react-dom";
+/* The delete icon shows only when the task is hovered.
+When there is no tasks the list should "No tasks, add a task" */
 import React from "react";
 
 export class NuevaTarea extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			todos: [
 				{ done: false, title: "Make The bed", id: Math.random() * 10 },
@@ -32,13 +35,24 @@ export class NuevaTarea extends React.Component {
 
 		let arrayTodos = this.state.todos;
 
-		for (let i = 0; i < arrayTodos.length; i++) {
-			if (valor !== arrayTodos[i].title) {
-				arrayVacio.splice(i, 0, arrayTodos[i]);
+		if (this.state.value == "" || this.state.value == " ") {
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
+				}
+			}
+			arrayVacio.pop();
+		} else {
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
+				}
 			}
 		}
+
 		this.setState({
-			todos: arrayVacio
+			todos: arrayVacio,
+			value: ""
 		});
 	}
 

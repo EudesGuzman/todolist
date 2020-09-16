@@ -2,6 +2,7 @@ import React from "react";
 
 //include images into your bundle
 import { NuevaTarea } from "./nuevaTarea";
+/* import { Prueba } from "./prueba"; */
 
 //create your first component
 export function Home() {
