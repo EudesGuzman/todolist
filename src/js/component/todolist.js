@@ -1,9 +1,12 @@
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
+/* The delete icon shows only when the task is hovered.
+When there is no tasks the list should "No tasks, add a task" */
 import React from "react";
 
-export class Prueba extends React.Component {
+export class Todolist extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			todos: [
 				{ done: false, title: "Make The bed", id: Math.random() * 10 },
@@ -16,6 +19,7 @@ export class Prueba extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.cerrar = this.cerrar.bind(this);
 	}
 
 	handleChange(event) {
@@ -24,7 +28,6 @@ export class Prueba extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-
 		let valor = this.state.value;
 		let arrayVacio = [];
 		let newTodo = { done: false, title: valor, id: Math.random() * 10 };
@@ -32,40 +35,26 @@ export class Prueba extends React.Component {
 
 		let arrayTodos = this.state.todos;
 
-		for (let i = 0; i < arrayTodos.length; i++) {
-			if (valor !== arrayTodos[i].title || valor !== "") {
-				arrayVacio.splice(i, 0, arrayTodos[i]);
+		if (this.state.value == "" || this.state.value == " ") {
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
+				}
+			}
+			arrayVacio.pop();
+		} else {
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
+				}
 			}
 		}
-		this.setState({
-			todos: arrayVacio
-		});
 
-		value: this.state.value = "";
+		this.setState({
+			todos: arrayVacio,
+			value: ""
+		});
 	}
-
-	/* handleSubmit(event) {
-		event.preventDefault();
-		
-		for (let i = 0; i < this.state.todos.length; i++) {
-			if (this.state.todos[i].title !== this.state.value) {
-				console.log("hola");
-			}
-			console.log(this.state.todos[i], "todos");
-		}
-
-		this.setState({
-			todos: this.state.todos.concat({
-				done: false,
-				title: this.state.value,
-				id: Math.random() * 10
-			}),
-
-			value: (this.state.value = "")
-		});
-
-		return false;
-	} */
 
 	cerrar(todo) {
 		let addArray = [];
@@ -86,7 +75,6 @@ export class Prueba extends React.Component {
 			<div>
 				<form onSubmit={this.handleSubmit}>
 					<label>
-						Name:
 						<input
 							type="text"
 							value={this.state.value}
@@ -98,23 +86,19 @@ export class Prueba extends React.Component {
 				</form>
 				<div>
 					<h1>todos</h1>
-					{/*   Realmente hay que recorrer todo el Array y crear this.state.nombres para poder mostrarlo en el parrafo? */}
-					<p>
-						<ul>
-							{this.state.todos.map((todo, index) => {
-								return (
-									<li key={index}>
-										{todo.title}
-										{/* añadimos el boton de cerrar */}
-										<button
-											onClick={() => this.cerrar(todo)}>
-											Cerrar
-										</button>
-									</li>
-								);
-							})}
-						</ul>
-					</p>
+
+					<ul>
+						{this.state.todos.map((todo, index) => {
+							return (
+								<li key={index}>
+									{todo.title}
+									<button onClick={() => this.cerrar(todo)}>
+										Cerrar
+									</button>
+								</li>
+							);
+						})}
+					</ul>
 				</div>
 			</div>
 		);

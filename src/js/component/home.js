@@ -1,15 +1,16 @@
 import React from "react";
 
 //include images into your bundle
-import { NuevaTarea } from "./nuevaTarea";
-/* import { Prueba } from "./prueba"; */
+/* import { Todolist } from "./todolist.js"; */
+import { Apitodolist } from "./apitodolist.js";
 
 //create your first component
 export function Home() {
 	return (
 		<div className="text-center mt-5">
 			<h1>MyTasks</h1>
-			<NuevaTarea />
+			{/* <Todolist /> */}
+			<Apitodolist />
 		</div>
 	);
 }
