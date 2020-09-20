@@ -55,11 +55,6 @@ export class Apitodolist extends React.Component {
 		}
 	};
 
-	// Revisar. No siempre se eliminar o añade task
-
-	// Si eliminamos todos los TASK -> error. Se necesita metodo POST.
-	// Mejor forma de hacer el post? Como hacer el post si todos = []
-
 	deleteFromList = index => {
 		this.setState({
 			todos: this.state.todos.filter((item, pos) => pos !== index)
@@ -69,15 +64,14 @@ export class Apitodolist extends React.Component {
 	render() {
 		return (
 			<div>
-				<form>
-					<label>
-						<input
-							type="text"
-							placeholder="Añadimos una tarea?"
-							onKeyPress={this.addToList}
-						/>
-					</label>
-				</form>
+				<label>
+					<input
+						type="text"
+						placeholder="Añadimos una tarea?"
+						onKeyPress={this.addToList}
+					/>
+				</label>
+
 				<div>
 					<h1>todos - API</h1>
 
