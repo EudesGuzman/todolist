@@ -14,8 +14,7 @@ export class Todolist extends React.Component {
 				{ done: false, title: "Eat", id: Math.random() * 10 }
 			],
 
-			value: [],
-			open: -1
+			value: []
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -70,65 +69,30 @@ export class Todolist extends React.Component {
 			todos: addArray
 		});
 	}
-	enviar(e) {
-		let obj = {};
-		if (e.key === "Enter") {
-			for (let i = 0; i < this.state.todos.length; i++) {
-				if (this.state.value !== this.state.todos[i].title) {
-					console.log(i);
-					console.log(this.state.todos);
-					console.log(this.state.value);
-				}
-			}
-			/* this.setState({
-					todos: addArray
-				}); */
-		}
-	}
 
 	render() {
 		return (
 			<div>
-				<label>
-					<input
-						type="text"
-						value={this.state.value}
-						onChange={this.handleChange}
-						placeholder="Añade una nueva tarea"
-						onKeyPress={e => {
-							{
-								this.enviar(e);
-							}
-						}}
-					/>
-				</label>
-
+				<form onSubmit={this.handleSubmit}>
+					<label>
+						<input
+							type="text"
+							value={this.state.value}
+							onChange={this.handleChange}
+							placeholder="Añade una nueva tarea"
+						/>
+					</label>
+					<input type="submit" value="Submit" />
+				</form>
 				<div>
 					<h1>todos</h1>
 
 					<ul>
 						{this.state.todos.map((todo, index) => {
-							let isOpen =
-								this.state.open === index ? true : false;
 							return (
-								<li
-									key={index}
-									onMouseEnter={e => {
-										this.setState({ open: index });
-									}}
-									onMouseOut={e => {
-										this.setState({ open: -1 });
-									}}>
+								<li key={index}>
 									{todo.title}
-									<button
-										onClick={() => this.cerrar(todo)}
-										key={index}
-										onMouseEnter={e => {
-											this.setState({ open: index });
-										}}
-										style={{
-											display: isOpen ? "inherit" : "none"
-										}}>
+									<button onClick={() => this.cerrar(todo)}>
 										Cerrar
 									</button>
 								</li>
