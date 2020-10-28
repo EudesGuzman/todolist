@@ -7,7 +7,6 @@ import { Todolist } from "./todolist.js";
 export function Home() {
 	return (
 		<div className="text-center mt-5">
-			<h1>MyTasks</h1>
 			<Todolist />
 		</div>
 	);

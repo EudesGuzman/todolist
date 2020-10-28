@@ -29,33 +29,34 @@ export class Todolist extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		let value = this.state.value;
-		let aux = [];
-		let newTodo = { done: false, title: value, id: Math.random() * 10 };
-		aux.push(newTodo);
+		let valor = this.state.value;
+		let arrayVacio = [];
+		let newTodo = { done: false, title: valor, id: Math.random() * 10 };
+		arrayVacio.push(newTodo);
 
-		let arrTodos = this.state.todos;
+		let arrayTodos = this.state.todos;
 
 		if (this.state.value == "" || this.state.value == " ") {
-			for (let i = 0; i < arrTodos.length; i++) {
-				if (value !== arrTodos[i].title) {
-					aux.splice(i, 0, arrTodos[i]);
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
 				}
 			}
-			aux.pop();
+			arrayVacio.pop();
 		} else {
-			for (let i = 0; i < arrTodos.length; i++) {
-				if (value !== arrTodos[i].title) {
-					aux.splice(i, 0, arrTodos[i]);
+			for (let i = 0; i < arrayTodos.length; i++) {
+				if (valor !== arrayTodos[i].title) {
+					arrayVacio.splice(i, 0, arrayTodos[i]);
 				}
 			}
 		}
 
 		this.setState({
-			todos: aux,
+			todos: arrayVacio,
 			value: ""
 		});
 	}
+
 	cerrar(todo) {
 		let addArray = [];
 		for (let i = 0; i < this.state.todos.length; i++) {
@@ -69,34 +70,49 @@ export class Todolist extends React.Component {
 			todos: addArray
 		});
 	}
+	/* 	enviar(e) {
+		let obj = {};
+		if (e.key === "Enter") {
+			for (let i = 0; i < this.state.todos.length; i++) {
+				if (this.state.value !== this.state.todos[i].title) {
+					console.log(i);
+					console.log(this.state.todos);
+					console.log(this.state.value);
+				}
+			};
+			// this.setState({
+			// 		todos: addArray
+			// 	});
+		}
+    } */
 
 	enviar(e) {
 		let obj = {};
 		if (e.key === "Enter") {
-			let value = this.state.value;
-			let aux = [];
-			let newTodo = { done: false, title: value, id: Math.random() * 10 };
-			aux.push(newTodo);
+			let valor = this.state.value;
+			let arrayVacio = [];
+			let newTodo = { done: false, title: valor, id: Math.random() * 10 };
+			arrayVacio.push(newTodo);
 
-			let arrTodos = this.state.todos;
+			let arrayTodos = this.state.todos;
 
 			if (this.state.value == "" || this.state.value == " ") {
-				for (let i = 0; i < arrTodos.length; i++) {
-					if (value !== arrTodos[i].title) {
-						aux.splice(i, 0, arrTodos[i]);
+				for (let i = 0; i < arrayTodos.length; i++) {
+					if (valor !== arrayTodos[i].title) {
+						arrayVacio.splice(i, 0, arrayTodos[i]);
 					}
 				}
-				aux.pop();
+				arrayVacio.pop();
 			} else {
-				for (let i = 0; i < arrTodos.length; i++) {
-					if (value !== arrTodos[i].title) {
-						aux.splice(i, 0, arrTodos[i]);
+				for (let i = 0; i < arrayTodos.length; i++) {
+					if (valor !== arrayTodos[i].title) {
+						arrayVacio.splice(i, 0, arrayTodos[i]);
 					}
 				}
 			}
 
 			this.setState({
-				todos: aux,
+				todos: arrayVacio,
 				value: ""
 			});
 		}
@@ -105,13 +121,12 @@ export class Todolist extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Todos</h1>
 				<label>
 					<input
 						type="text"
 						value={this.state.value}
 						onChange={this.handleChange}
-						placeholder="Whats need to be done?"
+						placeholder="Añade una nueva tarea"
 						onKeyPress={e => {
 							{
 								this.enviar(e);
@@ -121,6 +136,8 @@ export class Todolist extends React.Component {
 				</label>
 
 				<div>
+					<h1>todos</h1>
+
 					<ul>
 						{this.state.todos.map((todo, index) => {
 							let isOpen =
@@ -144,7 +161,7 @@ export class Todolist extends React.Component {
 										style={{
 											display: isOpen ? "inherit" : "none"
 										}}>
-										X
+										Cerrar
 									</button>
 								</li>
 							);
