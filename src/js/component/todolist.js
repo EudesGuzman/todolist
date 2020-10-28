@@ -70,7 +70,7 @@ export class Todolist extends React.Component {
 			todos: addArray
 		});
 	}
-	enviar(e) {
+	/* 	enviar(e) {
 		let obj = {};
 		if (e.key === "Enter") {
 			for (let i = 0; i < this.state.todos.length; i++) {
@@ -79,10 +79,42 @@ export class Todolist extends React.Component {
 					console.log(this.state.todos);
 					console.log(this.state.value);
 				}
+			};
+			// this.setState({
+			// 		todos: addArray
+			// 	});
+		}
+    } */
+
+	enviar(e) {
+		let obj = {};
+		if (e.key === "Enter") {
+			let valor = this.state.value;
+			let arrayVacio = [];
+			let newTodo = { done: false, title: valor, id: Math.random() * 10 };
+			arrayVacio.push(newTodo);
+
+			let arrayTodos = this.state.todos;
+
+			if (this.state.value == "" || this.state.value == " ") {
+				for (let i = 0; i < arrayTodos.length; i++) {
+					if (valor !== arrayTodos[i].title) {
+						arrayVacio.splice(i, 0, arrayTodos[i]);
+					}
+				}
+				arrayVacio.pop();
+			} else {
+				for (let i = 0; i < arrayTodos.length; i++) {
+					if (valor !== arrayTodos[i].title) {
+						arrayVacio.splice(i, 0, arrayTodos[i]);
+					}
+				}
 			}
-			/* this.setState({
-					todos: addArray
-				}); */
+
+			this.setState({
+				todos: arrayVacio,
+				value: ""
+			});
 		}
 	}
 
@@ -135,6 +167,7 @@ export class Todolist extends React.Component {
 							);
 						})}
 					</ul>
+					<p className="left">{this.state.todos.length} item left</p>
 				</div>
 			</div>
 		);
